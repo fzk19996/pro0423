@@ -88,7 +88,7 @@
     "vue-template-compiler": "^2.5.16",
     "vue-validator-help": "^1.0.4",
     "webpack": "^3.12.0",
-    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-bundle-analyzer": "^3.7.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
     "webpack-node-externals": "^1.7.2"
