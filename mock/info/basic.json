@@ -1,0 +1,13 @@
+{
+    "msg": "success",
+    "code": 200,
+    "data": {
+        "userId": 1,
+        "projectId": 1,
+        "projectName": "test",
+        "nickName": "zj",
+        "bindStatus": 0,
+        "appName": null,
+        "qrCodeUrl": null
+    }
+}
