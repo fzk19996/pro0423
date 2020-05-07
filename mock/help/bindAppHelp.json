@@ -1,0 +1,20 @@
+{
+    "msg": "success",
+    "code": 200,
+    "data": [
+        {
+            "staticResourceId": 1,
+            "fileType": "jpg",
+            "url": "https://t1.focus-img.cn/sh380x285sh/focus-op/prod/2495c36bd58a185cde401a6ebcf9612f.jpg",
+            "order": 1,
+            "type": 1
+        },
+        {
+            "staticResourceId": 2,
+            "fileType": "jps",
+            "url": "https://t3.focus-img.cn/sh180x135sh/focus-op/prod/76b0ffe4cffb9b0486cd6bcf562e3edf.png",
+            "order": 2,
+            "type": 1
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "msg": "success",
+    "code": 200,
+    "data": [
+        {
+            "staticResourceId": 3,
+            "fileType": "pdf",
+            "url": "http://file.dakawengu.com/file/2018-05-29/20180527-tianfeng.pdf",
+            "order": null,
+            "type": 2
+        }
+    ]
+}

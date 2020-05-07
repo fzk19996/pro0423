@@ -1,0 +1,10 @@
+{
+    "msg": "success",
+    "code": 200,
+    "data": {
+        "existMainPage": false,
+        "existKeyLandMark": false,
+        "existRecommendRoute": false,
+        "existHouseSource": false
+    }
+}
