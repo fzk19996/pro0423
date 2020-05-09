@@ -56,7 +56,8 @@ export default {
         handleCheck(row) {
             this.mode = 'check';
             this.$router.push({
-                name: 'spreadAdd',
+                // path: 'market/spreadAdd',
+                name:'spreadAdd',
                 params: {
                     mode: this.mode,
                     row: row
@@ -65,7 +66,8 @@ export default {
         },
         handleCreate(id, mode) {
             this.$router.push({
-                name: 'spreadAdd',
+                // path: '/market/spreadAdd',
+                name:'spreadAdd',
                 params: {
                     mode: mode
                 }

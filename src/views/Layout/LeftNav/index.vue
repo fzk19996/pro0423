@@ -30,11 +30,12 @@ exports.data = function() {
         curNav: []
     };
 };
+
 exports.methods = {
     navSelect(to, from) {
         const { matched } = this.$route;
         this.type = matched[1].path.replace('/', '');
-
+        // console.log(this.type);
         if (matched.length >= 2) {
             this.selected(this.type, matched[matched.length - 1].path.replace('/', ''));
         }
@@ -45,7 +46,10 @@ exports.methods = {
         this.leftNavList.map(nav => {
             if (nav.path === type) {
                 this.curNav = nav.children;
+                // console.log(this.curNav);
                 this.curNav && this.curNav.map((cn, index) => {
+                    console.log(cn);
+                    console.log(path);
                     if (['', '/'].includes(cn.path)) {
                         cn.pathFull = `/${nav.path}/`;
                     } else {
@@ -57,9 +61,13 @@ exports.methods = {
                     } else {
                         cn.current = path.replace(nav.path, '').includes(cn.path + '/');
                     }
+                    if (path=='market/spreadAdd'){
+                        cn.current = true;
+                    }
                     // tab下才显示子菜单
                     // cn.subMenu = nav.tab !== false && cn.subMenu;
                     this.$set(this.curNav, index, cn);
+                    console.log(this.curNav);
                 });
             }
         });

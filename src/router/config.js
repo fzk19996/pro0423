@@ -80,16 +80,29 @@ const routers = [
                 name: '营销管理',
                 component: view,
                 children: [
+                    // {
+                    //     path:'/',
+                    //     name: 'baiye',
+                    //     subMenu: false,
+                    //     component: require('../views/Market/Spread')
+                    // },
                     {
                         path: '/',
                         name: '推广管理',
-                        component: require('../views/Market/Spread')
-                    },
-                    {
-                        path: 'spreadAdd',
-                        name: 'spreadAdd',
-                        subMenu: false,
-                        component: require('../views/Market/SpreadAdd')
+                        component: view,
+                        // component: require('../views/Market/Spread'),
+                        children:[
+                            {
+                                path:'/',
+                                component: require('../views/Market/Spread')
+                            },
+                            {
+                                path: 'spreadAdd',
+                                name: 'spreadAdd',
+                                // subMenu: false,
+                                component: require('../views/Market/SpreadAdd')
+                            }
+                        ]
                     }
                 ]
             },
