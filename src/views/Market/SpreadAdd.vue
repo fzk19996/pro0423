@@ -88,7 +88,7 @@
                             el-option(v-for = "item in recommend" :key = "item.id" :label="item.name" :value="item.id")
                     el-form-item(label="展示周期：" prop="date")
                         //- <el-date-picker v-model="formData.info.date" type="month" placeholder="选择月"   @change="jobSearch" value-format="yyyy-MM"></el-date-picker>
-                        el-date-picker(type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model.trim="date" placeholder="选择一个或多个日期" style = "max-width:260px")
+                        el-date-picker(type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="date" placeholder="选择一个或多个日期" style = "max-width:260px"  value-format="yyyy-MM-dd")
                         //- el-input(v-model.trim="formData.topicAbstract" type="textarea" :rows="3")
                         //- div.info 专题简介会用于介绍区、分享副标题等展示，请填写1-100字，当前输入{{topicAbstractLength}}字
                     el-form-item(label="链   接：" prop="links")
@@ -269,9 +269,11 @@ export default {
                     var content = JSON.parse(res.idea.content);
                     this.formData.info.links = content.link[0].content;
                     this.formData.info.cover_image = content.img[0].content;
-                    console.log(this.formData);
+                    if (res.schedule.split('-').length==2){
+                        this.date = res.schedule.split('-');
+                    }
+                    // console.log(this.formData);
                 });
-            
         }else if(this.mode=='create'){
             this.$serv.adPoslist().then(
                 res=>{
@@ -281,6 +283,7 @@ export default {
             Object.assign(this.formData, this.$options.data().formData);
             console.log('新建');
         }
+        console.log(this.formData.date);
     },
     updated() {},
     methods: {
@@ -307,7 +310,8 @@ export default {
             console.log('保存');
             const params = {};
             params.posId = this.formData.info.recom;
-            params.schedule = this.formData.info.date[0]+'-'+this.formData.info.date[1];
+            console.log(this.date);
+            params.schedule = this.date[0]+'-'+this.date[1];
             var content = {
                 input:[],
                 img:[

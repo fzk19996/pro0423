@@ -12,13 +12,31 @@ export default {
             type:1,
             tableData:[],
             pageSize: 10,
-            pageNo: 1
+            pageNo: 1,
+            posName: '',
+            pageName: '',
+            date: '',
+            status: ''
         };
     },
     activated() {
         this.getTableData();
     },
+    watch: {
+        pageSize(val, oldV) {
+            this.getTableData();
+        },
+        pageNo(val, oldV) {
+            this.getTableData();
+        }
+    },
     methods: {
+        handleSizeChange(val) {
+            this.pageSize = val;
+        },
+        handleCurrentChange(val) {
+            this.pageNo = val;
+        },
         getTableData() {
             const params = {};
             params.pageNo = this.pageNo;
@@ -72,6 +90,25 @@ export default {
                     mode: mode
                 }
             });
+        },
+        _getSearchData(){
+            const params = {};
+            params.posName = this.pageName + '-' + this.posName;
+            params.date = this.date;
+            params.status = this.status;
+            params.pageNo = this.pageNo;
+            params.pageSize = this.pageSize;
+            this.$serv.adList(params).
+                then(res=>{
+                    if(res){
+                        this.tableData = res.list;
+                        return;
+                    }
+                    Alert({
+                        type: 'error',
+                        message: '推广列表失败'
+                    });
+                });
         }
     }
 };
@@ -86,6 +123,18 @@ export default {
                         type="primary"
                         @click="handleCreate(null, 'create')"
                         ) 创建新推广
+        div(style="margin: 30px 0 40px")
+            span 页面名称
+            el-input(style="width: 140px; margin: 0 20px 0 10px" placeholder="请输入素材ID" v-model="pageName")
+            span 推广位名称
+            el-input(style="width: 220px; margin: 0 20px 0 10px" placeholder="请输入标题" v-model="posName")
+            span 展示周期
+            el-date-picker(style="width: 220px; margin: 0 20px 0 10px" type='date' placeholder="请输入日期" value-format="yyyy-MM-dd" v-model="date")
+            span 状态
+            el-select(v-model="status" style="width: 140px; margin: 0 20px 0 10px")
+                el-option(label='无效' value="0")
+                el-option(label='有效' value="1")
+            el-button(type="primary" @click="_getSearchData") 搜索
         div(style = "width:100%;height:0.5px;background:#D5D5D5;")
         el-table(:data="tableData" border)
             el-table-column(label="页面名称" prop="pageName" width="80px" align="center")
@@ -94,11 +143,11 @@ export default {
             el-table-column(label="展示周期" prop="schedule" align="center")
             el-table-column(label="状态" prop="status" width="120px" align="center")
                 template(slot-scope="scope")
-                    p {{scope.row.status===3?'主推':scope.row.status===2?'隐藏':'正常'}}
+                    p {{scope.row.status===0?'无效':scope.row.status===2?'有效':''}}
             el-table-column(label="操作" align="center")
                 template(slot-scope="scope")
                     el-button(@click="handleCheck(scope.row, 'edit')" size="small") 查看
-                    el-button(@click="handleUneffect(scope.row)" size="small" v-if="scope.row.status !== 3") 失效
+                    el-button(@click="handleUneffect(scope.row)" size="small" v-if="scope.row.status === 0") 失效
         el-pagination(
             background
             @size-change="handleSizeChange"
