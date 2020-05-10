@@ -17,7 +17,7 @@ export default {
             posName: '',
             pageName: '',
             date: '',
-            status: ''
+            status: '2'
         };
     },
     activated() {
@@ -142,8 +142,9 @@ export default {
             el-date-picker(style="width: 220px; margin: 0 20px 0 10px" type='date' placeholder="请输入日期" value-format="yyyy-MM-dd" v-model="date")
             span 状态
             el-select(v-model="status" style="width: 140px; margin: 0 20px 0 10px")
-                el-option(label='无效' value="0")
-                el-option(label='有效' value="1")
+                el-option(label='全部' value="2")
+                el-option(label='正常' value="1")
+                el-option(label='失效' value="0")
             el-button(type="primary" @click="_getSearchData") 搜索
         div(style = "width:100%;height:0.5px;background:#D5D5D5;")
         el-table(:data="tableData" border)
