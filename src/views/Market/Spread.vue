@@ -1,6 +1,7 @@
 <script>
 import TableSearch from 'com/TableSearch/TableSearch';
 import Alert from 'com/alert/index';
+import { MessageBox } from 'element-ui';
 
 export default {
     components: {
@@ -54,22 +55,31 @@ export default {
                 });
         },
         handleUneffect(row) {
-            const params = {};
-            params.adUnitId = row.adUnitId;
-            this.$serv.adUneffect(params).
-                then(res=>{
-                    if(res){
-                        if(res.code==200&&res.msg=='success'){
-                            console.log("失效成功");
-                            return;
+            MessageBox.confirm(`确定失效吗。`, '取消失效', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                cancelButtonClass: 'cancelBtn',
+                confirmButtonClass: 'confirmBtn'
+            }).then(() => {
+                const params = {};
+                params.adUnitId = row.adUnitId;
+                this.$serv.adUneffect(params).
+                    then(res=>{
+                        if(res){
+                            if(res.code==200&&res.msg=='success'){
+                                console.log("失效成功");
+                                return;
+                            }
                         }
-                    }
-                    Alert({
-                        type: 'error',
-                        message:  '失效失败'
+                        Alert({
+                            type: 'error',
+                            message:  '失效失败'
+                        });
+                        console.log('失效失败');
                     });
-                    console.log('失效失败');
-                });
+            }).catch(() => {
+                    
+            });   
         },
         handleCheck(row) {
             this.mode = 'check';
@@ -143,11 +153,11 @@ export default {
             el-table-column(label="展示周期" prop="schedule" align="center")
             el-table-column(label="状态" prop="status" width="120px" align="center")
                 template(slot-scope="scope")
-                    p {{scope.row.status===0?'无效':scope.row.status===2?'有效':''}}
+                    p {{scope.row.status===0?'失效':scope.row.status===1?'正常':''}}
             el-table-column(label="操作" align="center")
                 template(slot-scope="scope")
                     el-button(@click="handleCheck(scope.row, 'edit')" size="small") 查看
-                    el-button(@click="handleUneffect(scope.row)" size="small" v-if="scope.row.status === 0") 失效
+                    el-button(@click="handleUneffect(scope.row)" size="small" v-if="scope.row.status === 1") 失效
         el-pagination(
             background
             @size-change="handleSizeChange"

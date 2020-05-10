@@ -91,9 +91,9 @@
                         el-date-picker(type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="date" placeholder="选择一个或多个日期" style = "max-width:260px"  value-format="yyyy-MM-dd")
                         //- el-input(v-model.trim="formData.topicAbstract" type="textarea" :rows="3")
                         //- div.info 专题简介会用于介绍区、分享副标题等展示，请填写1-100字，当前输入{{topicAbstractLength}}字
-                    el-form-item(label="链   接：" prop="links")
+                    el-form-item(label="链   接：" prop="info.links")
                         el-input(v-model.trim = "formData.info.links" placeholder="请输入链接" type="text" style="max-width: 500px !important;")
-                        span.info   {{linksLength}}/200                    
+                        //- span.info   {{linksLength}}/200                    
                     el-form-item(label="封面图："  prop="info.cover_image")
                         div.suoluetu(style = "margin-top:10px; height:120px")
                             div.imgPreview
@@ -142,12 +142,12 @@ export default {
                 // id: [{ required: true, message: '请输入素材id', trigger: 'blur' }]
             },
             rules: {
-                recom: [{ required: true, message: '请选择推广位', trigger: 'blur' }],
-                date: [
-                    { required: true, message: ' ', trigger: 'blur' }
-                ],
-                links: [{ required: true, message: '请输入链接', trigger: 'blur' }],
-                'info.cover_image': [{ required: true }]
+                // recom: [{ required: true, message: '请选择推广位', trigger: 'blur' }]
+                // date: [
+                //     { required: true, message: ' ', trigger: 'blur' }
+                // ]
+                // links: [{ required: true, message: '请输入链接', trigger: 'blur' }],
+                // 'info.cover_image': [{ required: true }]
             },
             initData: {
                 title: '',
