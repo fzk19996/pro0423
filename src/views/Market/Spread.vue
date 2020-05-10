@@ -17,10 +17,10 @@ export default {
             posName: '',
             pageName: '',
             date: '',
-            status: '2'
+            status: '1'
         };
     },
-    activated() {
+    created() {
         this.getTableData();
     },
     watch: {
@@ -42,6 +42,7 @@ export default {
             const params = {};
             params.pageNo = this.pageNo;
             params.pageSize = this.pageSize;
+            params.status = '2';
             this.$serv.adList(params).
                 then(res=>{
                     if(res){
@@ -119,6 +120,14 @@ export default {
                         message: '推广列表失败'
                     });
                 });
+        },
+        rowStyle({ row, rowIndex }) {
+            console.log(row);
+            if (row.status === 0) {
+                return { 'background-color':'grey',color:'#778899' };
+            } else {
+                return '';
+            }
         }
     }
 };
@@ -147,8 +156,8 @@ export default {
                 el-option(label='失效' value="0")
             el-button(type="primary" @click="_getSearchData") 搜索
         div(style = "width:100%;height:0.5px;background:#D5D5D5;")
-        el-table(:data="tableData" border)
-            el-table-column(label="页面名称" prop="pageName" width="80px" align="center")
+        el-table(:data="tableData"  :row-style="rowStyle")
+            el-table-column(label="页面名称" prop="pageName"  width="80px" align="center")
             el-table-column(label="推广位名称" prop="posName" width="100px" align="left" header-align="center")
             el-table-column(label="推广位说明" prop="description" header-align="center" align="left")
             el-table-column(label="展示周期" prop="schedule" align="center")
@@ -172,4 +181,10 @@ export default {
                 <el-button type="primary"  class = "search_button" >搜索</el-button>
 
 </template>
-<style lang="scss" scope></style>
+<style lang="stylus" scoped>
+  .success
+    color:''
+  .fail
+    color:red
+    background-color rgb(192,192,192)
+</style>
