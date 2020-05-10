@@ -88,7 +88,7 @@
                             el-option(v-for = "item in recommend" :key = "item.id" :label="item.name" :value="item.id")
                     el-form-item(label="展示周期：" prop="date")
                         //- <el-date-picker v-model="formData.info.date" type="month" placeholder="选择月"   @change="jobSearch" value-format="yyyy-MM"></el-date-picker>
-                        el-date-picker(type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="date" placeholder="选择一个或多个日期" style = "max-width:260px"  value-format="yyyy-MM-dd")
+                        el-date-picker(type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="formData.date" placeholder="选择一个或多个日期" style = "max-width:260px"  value-format="yyyyMMdd")
                         //- el-input(v-model.trim="formData.topicAbstract" type="textarea" :rows="3")
                         //- div.info 专题简介会用于介绍区、分享副标题等展示，请填写1-100字，当前输入{{topicAbstractLength}}字
                     el-form-item(label="链   接：" prop="info.links")
@@ -212,9 +212,9 @@ export default {
             nextMonth = nextMonth.toString().padStart(2, "0");
             this.startdate = `${year}-${month}-01`;//拼接日期
             this.enddate = `${year}-${nextMonth}-01`;
-            console.log(this.startdate+"  "+this.enddate );
-            this.date[0]=this.startdate;
-            this.date[1]=this.enddate;  
+            // console.log(this.startdate+"  "+this.enddate );
+            // this.formData.date[0]=this.startdate;
+            // this.formData.date[1]=this.enddate;  
         }
     },
     components: {
@@ -270,7 +270,7 @@ export default {
                     this.formData.info.links = content.link[0].content;
                     this.formData.info.cover_image = content.img[0].content;
                     if (res.schedule.split('-').length==2){
-                        this.date = res.schedule.split('-');
+                        this.formData.date = res.schedule.split('-');
                     }
                     // console.log(this.formData);
                 });
@@ -311,7 +311,7 @@ export default {
             const params = {};
             params.posId = this.formData.info.recom;
             console.log(this.date);
-            params.schedule = this.date[0]+'-'+this.date[1];
+            params.schedule = this.formData.date[0]+'-'+this.formData.date[1];
             var content = {
                 input:[],
                 img:[
